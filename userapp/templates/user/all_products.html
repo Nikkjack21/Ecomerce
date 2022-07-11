@@ -109,12 +109,12 @@
   
               <div class="sidebar-products clearfix">
                 <h2>Bestsellers</h2>
-                {% for product in products %}
+                {% for product in pop %}
 
                 <div class="item">
                   <a href="{{ product.get_url }}"><img src="{{product.images.url}}" alt=""></a>
                   <h3><a href="{{ product.get_url }}">{{product.product_name}}</a></h3>
-                  <div class="price">Rs.{{product.price}}</div>
+                  <div class="price">{{product.price}}</div>
                 </div>
                 {% endfor %}
 
