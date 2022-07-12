@@ -219,7 +219,7 @@ def phone_verification(request):
 
                 client = Client(account_sid, auth_token)
                 verification = client.verify \
-                        .services("VA38cc8734ac2db4a918b56a6bd98030c7") \
+                        .services("VA035eaddeaaeca9030ee9265e059da5bb") \
                         .verifications \
                         .create(to=phone_no,channel='sms')
                 print("1234")
@@ -271,7 +271,7 @@ def otp_verification(request,phone_number):
         auth_token = settings.AUTH_TOKEN
         client = Client(account_sid, auth_token)
         verification_check = client.verify \
-                                .services("VA38cc8734ac2db4a918b56a6bd98030c7") \
+                                .services("VA035eaddeaaeca9030ee9265e059da5bb") \
                                 .verification_checks \
                                 .create(to= phone_no, code= otp_input)
            
