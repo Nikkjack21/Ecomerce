@@ -281,8 +281,8 @@ def otp_verification(request,phone_number):
             user = Account.objects.get(username=user_name)
             user.is_active = True   
             user.phone_number = phone_number        
-            user.save()          
-            messages.success(request,"registered successfully")
+            user.save()
+            print('Account created succesfully')          
             return redirect ('signin')
         else:
             print("Entering else statementt")
@@ -377,12 +377,14 @@ def main_p_view(request, id):
             paged_product   = p.get_page(page)
         else:
             paged_product   = p.get_page(page)
+        pop   = Product.objects.all().filter(is_available=True)[9:12]
 
         context ={
             'main_cat': main_cat,
             'main_cate': main_cate.id,
             'products': paged_product,
-            'categos': categor
+            'categos': categor,
+            'pop':pop,
             
         }
 
