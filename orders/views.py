@@ -261,7 +261,7 @@ def place_order(request, total=0, quantity=0, coups=None, coupon=None):
 
 
         # authorize razorpay client with API Keys.
-           
+
            
             razorpay_client = razorpay.Client(
             auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
@@ -274,8 +274,10 @@ def place_order(request, total=0, quantity=0, coups=None, coupon=None):
             # order id of newly created order.
         
             razorpay_order_id = razorpay_order['id']
+            print('RAZOR PAY ORDER ID BELOW FOR CART')
+            print(razorpay_order_id)
  
-            callback_url = 'http://iamjacksonpatrick.com/orders/razor_success/'   
+            callback_url = "https://" + "www.iamjacksonpatrick.com" + "/orders/razor_success/"    
 
 
 
@@ -440,7 +442,9 @@ def cash_on_delivery(request,order_number):
 def razor_success(request):
     print('Entering razor Viewwwwwww')
     transID = request.POST.get('razorpay_payment_id')
-    razorpay_order_id = request.POST.get('razorpay_order_id')
+    razorpay_order_id = request.POST.get('razorpay_order_id', "")
+    print('RAZOR PAY ORDER ID BELOW FOR RAZOR SUCCESS')
+    print(razorpay_order_id)
     signature = request.POST.get('razorpay_signature')
     current_user = request.user
 
@@ -450,7 +454,7 @@ def razor_success(request):
     order = Order.objects.get(order_number = razor)
     print('razor success page')
     payment = Payment()
-    payment.user= request.user
+    payment.user = current_user
     payment.payment_id = transID
     payment.payment_method = "Razorpapy"
     payment.amount_paid = order.order_total
@@ -656,7 +660,7 @@ def buy_now_place_order(request, id, deduction=0, final_price=0,coupon=None):
             # order id of newly created order.
         
             razorpay_order_id = razorpay_order['id']
-            callback_url = 'http://iamjacksonpatrick.com/orders/razor_success/'   
+            callback_url = "https://" + "www.iamjacksonpatrick.com" + "/orders/razor_success/"   
 
             context={
                 'order_data':order_data,
@@ -761,7 +765,7 @@ def buy_razor_success(request,id):
     order = Order.objects.get(order_number = razor)
     print('razor success page')
     payment = Payment()
-    payment.user= request.user
+    payment.user = current_user
     payment.payment_id = transID
     payment.payment_method = "Razorpapy"
     payment.amount_paid = order.order_total
